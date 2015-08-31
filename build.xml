@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="pdp-ant" default="execute">
+
+	<property name="src.dir" value="src" />
+	<property name="build.dir" value="build" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<property name="jar.dir" value="${build.dir}/jar" />
+	<property name="main-class" value="com.epam.pdp.main.RunReader" />
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="init" depends="clean">
+		<mkdir dir="${classes.dir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="src" destdir="${classes.dir}" />
+	</target>
+
+	<target name="jar">
+		<mkdir dir="build/jar" />
+		<jar destfile="build/jar/pdp-ant.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="execute" depends="compile">
+		<java classname="${main-class}" classpath="${classes.dir}" />
+	</target>
+
+
+</project>
